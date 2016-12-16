@@ -17,8 +17,12 @@ slack_client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 intros = ["I'M MR MEESEEKS LOOK AT ME!",
           "I'M MR MEESEEKS!",
           "OOH I'M MR MEESEEKS LOOK AT ME!",
-          "HEY THERE I'M MR MEESEEKS!"]
-
+          "HEY THERE I'M MR MEESEEKS!",
+          "CAAANN DO! I'M MR MEESEEKS!"]
+taskRequests = ["Sure, some more code so that I can do that!",
+                "CAAN DO! MR.MEESEEKS iS ready to take ownership for that area of code.",
+                "MEESEEKS a new task and sense of PURPOSE! CAAN Do!"]
+i = 0
 
 def user_id_to_name(user_id):
     api_call = slack_client.api_call("users.list")
@@ -38,7 +42,9 @@ def handle_command(message):
         """
         response = random.choice(intros)
         if message.content.startswith("do"):
-            response = "Sure...write some more code then I can do that!"
+            while i < len(taskRequests):
+                response = taskRequests[i]
+                i += 1
         else:
             response += " EXISTANCE IS PAIN " + \
                        user_id_to_name(message.sender_id).upper() +\
